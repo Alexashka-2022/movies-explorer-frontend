@@ -1,0 +1,70 @@
+.error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1280px;
+    width: 100%;
+    background: #FFF;
+}
+
+.error-page__title {
+    color: #000;
+    text-align: center;
+    font-size: 140px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 246px 0 5px;
+}
+
+.error-page__subtitle {
+    color: #000;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+.error-page__button {
+    color: #3456F3;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: none;
+    background: transparent;
+    margin: 184px auto 60px;
+}
+
+.error-page__button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 760px) {
+    .error-page__title {
+        margin: 408px 0 5px;
+    }
+
+    .error-page__button {
+        margin: 184px auto 222px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .error-page__title {
+        font-size: 80px;
+        margin: 329px 0 10px;
+    }
+
+    .error-page__subtitle {
+        font-size: 12px;
+    }
+
+    .error-page__button {
+        margin: 284px auto 30px;
+    }
+}
