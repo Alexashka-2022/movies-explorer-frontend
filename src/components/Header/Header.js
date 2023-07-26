@@ -34,7 +34,7 @@ function Header(props) {
         <>
             {pathname === '/' && (
                 //клиент не авторизован
-                <header className="header__landing">
+                <header className="header header-landing">
                     <Link to='/' className="header__logo-link">
                         <img className="header__logo" src={logoPath} alt='Логотип' />
                     </Link >
@@ -50,7 +50,7 @@ function Header(props) {
             }
             {(pathname === "/movies" || pathname === "/saved-movies" || pathname === "/profile") &&
                 (
-                    <header className="header__logged-in">
+                    <header className="header header-logged-in">
                         <Link to='/' className="header__logo-link">
                             <img className="header__logo" src={logoPath} alt='Логотип' />
                         </Link >

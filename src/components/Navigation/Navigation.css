@@ -1,6 +1,7 @@
-.navigation__header {
+.navigation {
     display: flex;
-    column-gap: 16px;
+    column-gap: 17px;
+    margin-left: 52px;
 }
 
 .navigation__header-link {

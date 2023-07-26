@@ -20,6 +20,7 @@
     background: #F9F9F9;
     height: 46px;
     padding: 15px;
+    margin-bottom: 10px;
 }
 
 .login__input:focus {
@@ -67,7 +68,7 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
     .login__footer {
         margin: 16px auto 232px;
     }

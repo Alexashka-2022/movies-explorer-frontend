@@ -22,7 +22,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    margin: 40px 0;
+    margin: 38px 0;
 }
 
 .auth-form__form {
@@ -59,10 +59,10 @@
 
 .auth-form__submit-btn_login {
     padding: 0;
-    margin-top: 179px;
+    margin-top: 146px;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
     .auth-form__logo {
         margin-top: 232px;
     }
@@ -95,6 +95,6 @@
     }
 
     .auth-form__submit-btn_login {
-        margin-top: 267px;
+        margin-top: 232px;
     }
 }

@@ -73,7 +73,7 @@
     background-image: url("../../images/card__delete-button.svg");
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
     .card__cover {
         width: 342px;
         height: 190px;

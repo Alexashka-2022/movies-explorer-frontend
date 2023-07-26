@@ -2,7 +2,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 2;
+    z-index: 3;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -30,7 +30,7 @@
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 3;
+    z-index: 4;
 }
 
 .menu__close-button {
@@ -112,4 +112,27 @@
     margin-left: 7px;
     margin-right: 3px;
     vertical-align: middle;
+}
+
+@media screen and (max-width: 470px) {
+    .menu__content {
+        width: 100%;
+    }
+
+    .menu__close-button {
+        margin: 15px;
+    }
+
+    .menu__navigation {
+        margin-top: 84px;
+    }
+
+    .menu__navigation-link {
+        margin-bottom: 25px;
+    }
+
+    .menu__profile-link {
+        padding-top: 448px;
+        padding-left: 10px;
+    }
 }

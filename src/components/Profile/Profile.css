@@ -113,17 +113,22 @@
 }
 
 .profile__logoff-button {
-    color: #FF3055;
     text-align: center;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    text-decoration: none;
 }
 
-@media screen and (max-width: 760px) {
+.profile__logoff-text {
+    margin: 0;
+    color: #FF3055;
+}
+
+@media screen and (max-width: 768px) {
     .profile__header {
-        margin: 236px 0 96px;
+        margin: 234px 0 96px;
     }
 
     .profile__email {

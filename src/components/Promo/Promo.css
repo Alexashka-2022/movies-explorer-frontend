@@ -39,7 +39,7 @@
     opacity: 0.5;
 }
 
-.promo__button-more {
+.promo__link-more {
     display: block;
     width: 129px;
     height: 36px;
@@ -52,12 +52,12 @@
 
 }
 
-.promo__button-more:hover {
+.promo__link-more:hover {
     opacity: 0.6;
     cursor: pointer;
 }
 
-.promo__link-more {
+.promo__link-text {
     display: block;
     box-sizing: content-box;
     color: #FFFFFF;
@@ -68,6 +68,7 @@
     font-weight: 500;
     line-height: 16px;
     white-space: nowrap;
+    margin: 0;
     padding: 10px 20px;
 }
 
@@ -91,7 +92,7 @@
         margin: 22px auto 0;
     }
 
-    .promo__button-more {
+    .promo__link-more {
         margin: 92px auto 76px;
     }
 }
@@ -115,7 +116,7 @@
         margin: 24px auto 0;
     }
 
-    .promo__button-more {
+    .promo__link-more {
         margin: 80px auto 30px;
     }
 }

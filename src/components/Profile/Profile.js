@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 function Profile(props) {
     const [isEditProfile, setEditProfile] = React.useState(false);
 
+
     function handleClickEditProfile(event) {
         event.preventDefault();
         setEditProfile(true);
@@ -18,7 +19,7 @@ function Profile(props) {
     return (
         <>
             <Header loggedIn={props.loggedIn} />
-            <section className="profile">
+            <main className="profile">
                 <h1 className="profile__header">Привет, Виталий!</h1>
                 <form className="profile__form">
                     <div className="profile__input-container profile__name">
@@ -54,12 +55,14 @@ function Profile(props) {
                             :
                             <>
                                 <button className="profile__button profile__edit-button" type="button" onClick={handleClickEditProfile}>Редактировать</button>
-                                <button className="profile__button profile__logoff-button" type="button">Выйти из аккаунта</button>
+                                <a className="profile__button profile__logoff-button" href="/">
+                                    <p className="profile__logoff-text">Выйти из аккаунта</p>
+                                </a>
                             </>
                         }
                     </div>
                 </form>
-            </section>
+            </main>
         </>
     );
 }

@@ -50,6 +50,7 @@
 
 .techs__list {
     margin: 100px auto;
+    max-width: 100%;
     padding: 0;
     list-style: none;
     display: flex;
@@ -78,7 +79,7 @@
     letter-spacing: -0.56px;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
     .techs {
         padding: 0 50px;
     }
@@ -98,7 +99,7 @@
     }
 
     .techs__list {
-        margin: 83px auto 90px;
+        margin: 99px auto 90px;
     }
 
     .techs__item {
@@ -127,16 +128,18 @@
     }
 
     .techs__header {
-        margin: 70px 0 60px 0;
-        padding-bottom: 28px;
+        margin: 70px 0 50px 0;
+        padding-bottom: 26px;
+        font-size: 18px;
+        letter-spacing: -0.72px;
     }
 
     .techs__wrapper {
-        row-gap: 24px;
+        row-gap: 13px;
     }
 
     .techs__title {
-        font-size: 50px;
+        font-size: 30px;
         letter-spacing: -1.2px;
     }
 
@@ -148,5 +151,8 @@
 
     .techs__list {
         margin: 50px auto 70px;
+        grid-template-columns: repeat(2, 84px);
+        grid-template-rows: repeat(4, 57px);
+        gap: 10px;
     }
 }

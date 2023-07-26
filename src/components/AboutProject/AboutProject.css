@@ -86,13 +86,13 @@
     margin: 0;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
     .about-project__header {
         margin: 90px 50px 0 50px;
     }
 
     .about-project__list {
-        column-gap: 30px;
+        column-gap: 38px;
         margin: 70px 50px 0;
     }
 
@@ -106,9 +106,14 @@
         margin: 93px 50px 90px;
     }
 
+    .about-project__stripe-title {
+        padding: 9px 0 9px 6px;
+    }
+
     .about-project__stripe-subtitle {
         font-family: 'Suisse Intl', 'Arial', sans-serif;
         font-weight: 400;
+        padding-left: 6px;
     }
 
 }
