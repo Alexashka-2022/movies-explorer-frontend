@@ -4,3 +4,12 @@
     background: #FFF;
     margin: 0 auto;
 }
+
+.movies__empty-search {
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    margin: 100px auto;
+}

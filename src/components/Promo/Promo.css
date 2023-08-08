@@ -49,7 +49,7 @@
     border: 1px solid #FFF;
     box-sizing: border-box;
     margin: 146px 0 75px 70px;
-
+    text-decoration: none;
 }
 
 .promo__link-more:hover {
