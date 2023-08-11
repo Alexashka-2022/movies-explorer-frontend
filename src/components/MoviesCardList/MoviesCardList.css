@@ -49,7 +49,7 @@
     margin-bottom: 64px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 889px) {
     .movies-list__container {
         padding: 82px 0 30px;
         max-width: calc(100% - 60px);
@@ -68,7 +68,7 @@
 
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 767px) {
     .movies-list__container {
         padding: 40px 0 30px;
         max-width: calc(100% - 20px);

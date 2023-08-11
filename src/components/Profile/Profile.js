@@ -6,7 +6,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { regExp } from '../../utils/constants';
 
 function Profile(props) {
-    const { values, setValues, handleChange, setValid, resetForm } = useFormWithValidation({ name: "", email: "" });
+    const { values, setValues, handleChange, isValid, setValid, resetForm } = useFormWithValidation({ name: "", email: "" });
     const [isEditProfile, setEditProfile] = React.useState(false);
     const currentUser = React.useContext(CurrentUserContext);
 
@@ -80,7 +80,7 @@ function Profile(props) {
                     </div>
                     <div className="profile__buttons">
                         {isEditProfile ?
-                            <button className="profile__button profile__submit-button" type="submit" onClick={handleSubmit}>Сохранить</button>
+                            <button className={`profile__button ${!isValid ? "profile__submit-button_disabled" : "profile__submit-button"}`} type="submit" onClick={handleSubmit} disabled={!isValid}>Сохранить</button>
                             :
                             <>
                                 <button className="profile__button profile__edit-button" type="button" onClick={handleClickEditProfile}>Редактировать</button>

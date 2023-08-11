@@ -19,6 +19,9 @@ function SearchForm({ searchValue, handleSearch, isCheckboxEnable, toggleCheckbo
             setIsInputError(false);
         }
     }
+    React.useEffect(() => {
+        handleSearch(values.searchValue);
+    }, [isCheckboxEnable]);// eslint-disable-line
 
     return (
         <section className="search-form">

@@ -8,11 +8,9 @@ function MoviesCardList(props) {
         <section className="movies-list">
             <ul className="movies-list__container">
                 {props.cards.map((card) => (
-                    <MoviesCard
+                    < MoviesCard
                         card={card}
                         key={pathname === "/movies" ? card.id : card.movieId}
-                        id={card._id}
-                        savedMovies={props.savedMovies}
                         onSaveMovie={props.onSaveMovie}
                         onDeleteMovie={props.onDeleteMovie}
                     />

@@ -2,6 +2,7 @@ import React from 'react';
 import './SavedMovies.css';
 import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
+import SavedMoviesContext from '../../contexts/SavedMoviesContext';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
@@ -9,35 +10,46 @@ import { filteredByName, filteredByDuration } from '../../utils/utils';
 
 function SavedMovies(props) {
     const { pathname } = useLocation();
-    const [movies, setMovies] = React.useState([]);
+    const { savedMovies } = React.useContext(SavedMoviesContext);
+    const [movies, setMovies] = React.useState(savedMovies);
+    const [searchValue, setSearchValue] = React.useState("");
     const [isCheckboxEnable, setCheckBoxEnable] = React.useState(false);
     const [isSearchError, setIsSearchError] = React.useState("");
-    const savedMovies = props.savedMovies;
+
+    const updateMovies = React.useCallback((value) => {
+        const filteredMovies = filteredByName(savedMovies, value);
+        localStorage.setItem("foundSavedMovies", JSON.stringify(filteredMovies));
+
+        if (filteredMovies.length !== 0) {
+            setIsSearchError("");
+            setMovies(filteredMovies);
+        } else {
+            setIsSearchError("Ничего не удалось найти");
+            setMovies([]);
+        }
+
+        if (isCheckboxEnable) {
+            const filteredShortMovies = filteredByDuration(filteredMovies);
+            localStorage.setItem("foundSavedShortMovies", JSON.stringify(filteredShortMovies));
+        }
+
+        isCheckboxEnable ? setMovies(JSON.parse(localStorage.getItem("foundSavedShortMovies"))) : setMovies(JSON.parse(localStorage.getItem("foundSavedMovies")));
+    }, [isCheckboxEnable, savedMovies])
 
     React.useEffect(() => {
-        setMovies(savedMovies);
-    }, [pathname, savedMovies])
+        if (searchValue) {
+            updateMovies(searchValue);
+        } else {
+            setMovies(savedMovies);
+        }
+    }, [pathname, savedMovies, searchValue, updateMovies])
 
     function handleSearch(value) {
 
         if (value) {
-            const filteredMovies = filteredByName(savedMovies, value);
-            localStorage.setItem("foundSavedMovies", JSON.stringify(filteredMovies));
-
-            if (filteredMovies.length !== 0) {
-                setIsSearchError("");
-                setMovies(filteredMovies);
-            } else {
-                setIsSearchError("Ничего не удалось найти");
-                setMovies([]);
-            }
-
-            if (isCheckboxEnable) {
-                const filteredShortMovies = filteredByDuration(filteredMovies);
-                localStorage.setItem("foundSavedShortMovies", JSON.stringify(filteredShortMovies));
-            }
-
-            isCheckboxEnable ? setMovies(JSON.parse(localStorage.getItem("foundSavedShortMovies"))) : setMovies(JSON.parse(localStorage.getItem("foundSavedMovies")));
+            setSearchValue(value);
+            localStorage.setItem("savedMovieValue", value);
+            updateMovies(value);
         } else {
             isCheckboxEnable ? setMovies(filteredByDuration(savedMovies)) : setMovies(savedMovies);
         }
@@ -59,7 +71,6 @@ function SavedMovies(props) {
                 {!isSearchError && (
                     <MoviesCardList
                         cards={movies}
-                        savedMovies={savedMovies}
                         onDeleteMovie={props.onDeleteMovie}
                     />
                 )}

@@ -1,12 +1,12 @@
 import React from 'react';
 import './MoviesCard.css';
 import { useLocation } from 'react-router-dom';
+import SavedMoviesContext from '../../contexts/SavedMoviesContext';
 
 function MoviesCard(props) {
     const { pathname } = useLocation();
     const [isSavedFilm, setSavedFilm] = React.useState(false);
-    const savedMovies = props.savedMovies;
-
+    const { savedMovies } = React.useContext(SavedMoviesContext);
 
     function getMovieDuration(minutes) {
         if (minutes > 60) {
@@ -18,26 +18,33 @@ function MoviesCard(props) {
         }
     }
 
+    const saveMovie = savedMovies.find((item) => {
+        if (pathname === "/movies") {
+            return item.movieId === props.card.id;
+        } else {
+            return props.card.movieId === item.movieId
+        }
+    });
+
     function deleteMovie() {
-        props.onDeleteMovie(props.id)
-        setSavedFilm(false);
+        props.onDeleteMovie(saveMovie._id);
     }
 
     function toggleToSaveMovie() {
-        props.onSaveMovie(props.card);
-        setSavedFilm(true);
-    }
-    React.useEffect(() => {
-        if (pathname === "/movies") {
-            setSavedFilm(savedMovies.some((item) => {
-                return item.movieId === props.card.id;
-            }))
-        } else if (pathname === "/saved-movies") {
-            savedMovies.some((item) => {
-                return item.movieId === props.card.movieId;
-            })
+        if (isSavedFilm) {
+            deleteMovie();
+        } else {
+            props.onSaveMovie(props.card);
         }
-    }, [savedMovies, props.card.movieId, props.card.id, pathname])
+    }
+
+    React.useEffect(() => {
+        setSavedFilm(pathname === "/movies"
+            ? savedMovies.some((savedMovie) => {
+                return savedMovie.movieId === props.card.id;
+            })
+            : true)
+    }, [pathname, props.card.id, savedMovies])
 
     return (
         <li className="card">
@@ -53,7 +60,7 @@ function MoviesCard(props) {
                 } alt={`обложка фильма ${props.card.nameRU}`} />
             </a>
             {pathname === "/movies" ? (
-                <button type="button" className={`card__add-button ${isSavedFilm && "card__save-button"}`} onClick={!isSavedFilm ? toggleToSaveMovie : undefined} >{`${isSavedFilm ? "" : "Сохранить"}`}</button>
+                <button type="button" className={`card__add-button ${isSavedFilm && "card__save-button"}`} onClick={toggleToSaveMovie} >{`${isSavedFilm ? "" : "Сохранить"}`}</button>
             ) : (<button type="button" className="card__add-button card__delete-button" onClick={deleteMovie}></button>
             )}
         </li>

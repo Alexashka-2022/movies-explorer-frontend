@@ -48,10 +48,9 @@ function Movies(props) {
         }
     }, [pathname])
 
-    function updateMovies(value) {
-        if (value) {
-            const allMovies = JSON.parse(localStorage.getItem("allMovies") || '[]');
+    function updateMovies(allMovies, value) {
 
+        if (value) {
             setSearchValue(value);
             localStorage.setItem("search", value);
 
@@ -81,19 +80,24 @@ function Movies(props) {
     }
 
     function handleSearch(value) {
-        setIsLoading(true);
-        moviesApi.getMovies()
-            .then((movies) => {
-                localStorage.setItem("allMovies", JSON.stringify(movies));
-                updateMovies(value)
-            }).catch((err) => {
-                console.log(err);
-                setIsSearchError(
-                    "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
-                );
-            }).finally(() => {
-                setIsLoading(false);
-            })
+        const allMovies = JSON.parse(localStorage.getItem("allMovies") || '[]');
+        if (allMovies.length === 0) {
+            setIsLoading(true);
+            moviesApi.getMovies()
+                .then((movies) => {
+                    localStorage.setItem("allMovies", JSON.stringify(movies));
+                    updateMovies(movies, value)
+                }).catch((err) => {
+                    console.log(err);
+                    setIsSearchError(
+                        "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
+                    );
+                }).finally(() => {
+                    setIsLoading(false);
+                })
+        } else {
+            updateMovies(allMovies, value)
+        }
     }
 
     React.useEffect(() => {
@@ -107,7 +111,7 @@ function Movies(props) {
     function updateWidthInfo() {
         setTimeout(() => {
             setCurrentWidth(window.innerWidth);
-        }, 4000);
+        }, 300);
     }
 
 
@@ -144,15 +148,16 @@ function Movies(props) {
             renderedMovies.length < movies.length &&
             currentWidth >= resolutionMax
         ) {
-            setrenderedMovies(movies.slice(0, renderFilmsMax + addMoreMax));
+            setrenderedMovies(movies.slice(0, renderedMovies.length + addMoreMax));
         } else if (
             (renderedMovies.length < movies.length) &&
             (currentWidth >= resolutionMid && currentWidth < resolutionMax)
         ) {
-            setrenderedMovies(movies.slice(0, renderFilmsMid + addMoreMid));
+            setrenderedMovies(movies.slice(0, renderedMovies.length + addMoreMid));
         } else {
-            setrenderedMovies(movies.slice(0, renderFilmsMin + addMoreMin));
+            setrenderedMovies(movies.slice(0, renderedMovies.length + addMoreMin));
         }
+
     }
 
     return (
@@ -171,7 +176,6 @@ function Movies(props) {
                         cards={renderedMovies}
                         onShowMoreButtonClick={handleShowMoreButtonClick}
                         isShowMoreButton={isShowMoreButton}
-                        savedMovies={props.savedMovies}
                         onSaveMovie={props.onSaveMovie}
                         onDeleteMovie={props.onDeleteMovie}
                     />)}

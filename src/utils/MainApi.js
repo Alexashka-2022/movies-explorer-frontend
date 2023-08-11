@@ -93,7 +93,10 @@ class MainApi {
     }) {
         return this._request(`${this._baseUrl}/movies`, {
             method: "POST",
-            headers: this._headers,
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
+            },
             body: JSON.stringify({
                 country,
                 director,
@@ -110,8 +113,8 @@ class MainApi {
         })
     }
 
-    deleteMovie(id) {
-        return this._request(`${this._baseUrl}/movies/${id}`, {
+    deleteMovie(movieId) {
+        return this._request(`${this._baseUrl}/movies/${movieId}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',

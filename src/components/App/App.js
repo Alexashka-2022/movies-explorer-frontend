@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import CurrentUserContext from '../../contexts/CurrentUserContext'
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import SavedMoviesContext from '../../contexts/SavedMoviesContext';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -39,9 +40,12 @@ function App() {
       nameEN: data.nameEN,
     })
       .then((newMovie) => {
-        setSavedMovies([...savedMovies, newMovie]);
+        setSavedMovies([newMovie, ...savedMovies]);
       }).catch((err) => {
         console.log(err);
+        if (err === 'Ошибка: 401') {
+          handleLogout();
+        }
         setIsSubmitSuccess(false);
         setSubmitStatus("При сохранении фильма произошла ошибка");
         setInfoTooltipOpen(true);
@@ -52,7 +56,11 @@ function App() {
   function deleteFromSavedMovies(movieId) {
     mainApi.deleteMovie(movieId)
       .then((res) => {
-        setSavedMovies((currentState) => currentState.filter((item) => item._id !== movieId));
+        setSavedMovies((savedMovies) => {
+          return savedMovies.filter((item) => {
+            return item._id !== movieId;
+          });
+        });
       }).catch((err) => {
         console.log(err);
         setIsSubmitSuccess(false);
@@ -131,6 +139,7 @@ function App() {
     localStorage.clear();
     setLoggedIn(false);
     setCurrentUser({});
+    setSavedMovies([]);
     mainApi.setToken("");
     navigate("/");
   }
@@ -148,9 +157,13 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          handleLogout();
         })
+    } else {
+      handleLogout();
     }
-  }, [loggedIn]);
+  }, [loggedIn]);// eslint-disable-line
+
 
   /*Получаем список сохраненных карточек*/
   React.useEffect(() => {
@@ -170,59 +183,59 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        <Routes>
-          <Route path='/' element={
-            <Main
-              loggedIn={loggedIn}
-            />}
+      <SavedMoviesContext.Provider value={{ savedMovies }}>
+        <div className="page">
+          <Routes>
+            <Route path='/' element={
+              <Main
+                loggedIn={loggedIn}
+              />}
+            />
+            <Route path='/movies' element={
+              <ProtectedRoute
+                element={Movies}
+                loggedIn={loggedIn}
+                onSaveMovie={addToSavedMovies}
+                onDeleteMovie={deleteFromSavedMovies}
+              />}
+            />
+            <Route path='/saved-movies' element={
+              <ProtectedRoute
+                element={SavedMovies}
+                loggedIn={loggedIn}
+                onDeleteMovie={deleteFromSavedMovies}
+              />}
+            />
+            <Route path='/profile' element={
+              <ProtectedRoute
+                element={Profile}
+                loggedIn={loggedIn}
+                handleLogout={handleLogout}
+                onUpdateUser={handleUpdateUser}
+              />}
+            />
+            <Route path='/signup' element={
+              <Register
+                handleRegistration={handleRegistration}
+                loggedIn={loggedIn}
+              />}
+            />
+            <Route path='/signin' element={
+              <Login
+                handleLogin={handleLogin}
+                loggedIn={loggedIn}
+              />}
+            />
+            <Route path='*' element={<PageNotFound />} />
+          </Routes>
+          <InfoTooltip
+            onClose={closeAllPopups}
+            isOpen={isInfoTooltipOpen}
+            submitStatus={submitStatus}
+            isSubmitSuccess={isSubmitSuccess}
           />
-          <Route path='/movies' element={
-            <ProtectedRoute
-              element={Movies}
-              loggedIn={loggedIn}
-              savedMovies={savedMovies}
-              onSaveMovie={addToSavedMovies}
-              onDeleteMovie={deleteFromSavedMovies}
-            />}
-          />
-          <Route path='/saved-movies' element={
-            <ProtectedRoute
-              element={SavedMovies}
-              loggedIn={loggedIn}
-              savedMovies={savedMovies}
-              onDeleteMovie={deleteFromSavedMovies}
-            />}
-          />
-          <Route path='/profile' element={
-            <ProtectedRoute
-              element={Profile}
-              loggedIn={loggedIn}
-              handleLogout={handleLogout}
-              onUpdateUser={handleUpdateUser}
-            />}
-          />
-          <Route path='/signup' element={
-            <Register
-              handleRegistration={handleRegistration}
-              loggedIn={loggedIn}
-            />}
-          />
-          <Route path='/signin' element={
-            <Login
-              handleLogin={handleLogin}
-              loggedIn={loggedIn}
-            />}
-          />
-          <Route path='*' element={<PageNotFound />} />
-        </Routes>
-        <InfoTooltip
-          onClose={closeAllPopups}
-          isOpen={isInfoTooltipOpen}
-          submitStatus={submitStatus}
-          isSubmitSuccess={isSubmitSuccess}
-        />
-      </div>
+        </div>
+      </SavedMoviesContext.Provider>
     </CurrentUserContext.Provider>
   );
 }
