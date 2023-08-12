@@ -1,6 +1,5 @@
 import React from 'react';
 import './SavedMovies.css';
-import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import SavedMoviesContext from '../../contexts/SavedMoviesContext';
 import SearchForm from '../SearchForm/SearchForm';
@@ -9,7 +8,6 @@ import Footer from '../Footer/Footer';
 import { filteredByName, filteredByDuration } from '../../utils/utils';
 
 function SavedMovies(props) {
-    const { pathname } = useLocation();
     const { savedMovies } = React.useContext(SavedMoviesContext);
     const [movies, setMovies] = React.useState(savedMovies);
     const [searchValue, setSearchValue] = React.useState("");
@@ -37,12 +35,14 @@ function SavedMovies(props) {
     }, [isCheckboxEnable, savedMovies])
 
     React.useEffect(() => {
+
         if (searchValue) {
             updateMovies(searchValue);
         } else {
             setMovies(savedMovies);
         }
-    }, [pathname, savedMovies, searchValue, updateMovies])
+
+    }, [savedMovies, searchValue, updateMovies])
 
     function handleSearch(value) {
 

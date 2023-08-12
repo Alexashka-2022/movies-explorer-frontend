@@ -10,7 +10,7 @@ function MoviesCardList(props) {
                 {props.cards.map((card) => (
                     < MoviesCard
                         card={card}
-                        key={pathname === "/movies" ? card.id : card.movieId}
+                        key={pathname === "/movies" ? card.id : card._id}
                         onSaveMovie={props.onSaveMovie}
                         onDeleteMovie={props.onDeleteMovie}
                     />

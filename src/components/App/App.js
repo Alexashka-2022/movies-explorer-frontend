@@ -24,6 +24,18 @@ function App() {
   const [isSubmitSuccess, setIsSubmitSuccess] = React.useState(false);
   const navigate = useNavigate();
 
+  /*Получаем список сохраненных карточек*/
+  React.useEffect(() => {
+    if (loggedIn) {
+      mainApi.getSaveMovies()
+        .then((movies) => {
+          setSavedMovies(movies);
+        }).catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn])
+
   /*Обработчик добавления карточек в список "Сохраненные фильмы"*/
   function addToSavedMovies(data) {
     mainApi.saveMovie({
@@ -56,11 +68,7 @@ function App() {
   function deleteFromSavedMovies(movieId) {
     mainApi.deleteMovie(movieId)
       .then((res) => {
-        setSavedMovies((savedMovies) => {
-          return savedMovies.filter((item) => {
-            return item._id !== movieId;
-          });
-        });
+        setSavedMovies((movie) => movie.filter((item) => item._id !== movieId));
       }).catch((err) => {
         console.log(err);
         setIsSubmitSuccess(false);
@@ -163,19 +171,6 @@ function App() {
       handleLogout();
     }
   }, [loggedIn]);// eslint-disable-line
-
-
-  /*Получаем список сохраненных карточек*/
-  React.useEffect(() => {
-    if (loggedIn) {
-      mainApi.getSaveMovies()
-        .then((movies) => {
-          setSavedMovies(movies);
-        }).catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [loggedIn])
 
   function closeAllPopups() {
     setInfoTooltipOpen(false);
