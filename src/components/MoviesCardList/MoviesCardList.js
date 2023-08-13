@@ -7,15 +7,21 @@ function MoviesCardList(props) {
     return (
         <section className="movies-list">
             <ul className="movies-list__container">
-                {props.cards.map((card, index) => (
-                    <MoviesCard key={index} />
+                {props.cards.map((card) => (
+                    < MoviesCard
+                        card={card}
+                        key={pathname === "/movies" ? card.id : card._id}
+                        onSaveMovie={props.onSaveMovie}
+                        onDeleteMovie={props.onDeleteMovie}
+                    />
                 ))}
             </ul>
             {pathname === "/movies" ?
-                (<button className="movies-list__add-more" type="button">Ещё</button>)
+                (props.isShowMoreButton && <button className="movies-list__add-more" type="button" onClick={props.onShowMoreButtonClick} > Ещё</button>)
                 :
-                (<div className="movies-list__empty-place" />)}
-        </section>
+                (<div className="movies-list__empty-place" />)
+            }
+        </section >
     );
 }
 

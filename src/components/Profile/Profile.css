@@ -88,20 +88,20 @@
     background: transparent;
 }
 
-.profile__button:hover {
+.profile__edit-button {
     opacity: 0.7;
     cursor: pointer;
 }
 
 .profile__submit-button {
     color: #FFF;
+    background: #3456F3;
     text-align: center;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     border-radius: 3px;
-    background: #3456F3;
     box-sizing: border-box;
     display: block;
     height: 45px;
@@ -110,6 +110,20 @@
 .profile__submit-button:hover {
     opacity: 0.8;
     cursor: pointer;
+}
+
+.profile__submit-button_disabled {
+    background: #f8f8f8;
+    color: #C2C2C2;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: block;
+    height: 45px;
 }
 
 .profile__logoff-button {

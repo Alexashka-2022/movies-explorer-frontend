@@ -20,7 +20,6 @@
     background: #F9F9F9;
     height: 46px;
     padding: 15px;
-    margin-bottom: 10px;
 }
 
 .login__input:focus {
@@ -35,11 +34,17 @@
     font-weight: 400;
     line-height: normal;
     visibility: hidden;
+    margin-top: 10px;
 }
 
 .login__error_visible {
     visibility: visible;
     margin-top: 10px;
+    margin-bottom: 10px
+}
+
+.login__error_visible:last-of-type {
+    margin-bottom: 0px
 }
 
 .login__footer {

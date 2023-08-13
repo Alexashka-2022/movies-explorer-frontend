@@ -34,19 +34,48 @@ function Header(props) {
         <>
             {pathname === '/' && (
                 //клиент не авторизован
-                <header className="header header-landing">
-                    <Link to='/' className="header__logo-link">
-                        <img className="header__logo" src={logoPath} alt='Логотип' />
-                    </Link >
-                    <div className="header__auth-links">
-                        <Link to='/signup' className="header__register-link">
-                            Регистрация
-                        </Link>
-                        <Link to='/signin' className="header__login-link">
-                            Войти
-                        </Link>
-                    </div>
-                </header >)
+                !props.loggedIn  //клиент не авторизован
+                    ? (<header className="header header-landing">
+                        <Link to='/' className="header__logo-link">
+                            <img className="header__logo" src={logoPath} alt='Логотип' />
+                        </Link >
+                        <div className="header__auth-links">
+                            <Link to='/signup' className="header__register-link">
+                                Регистрация
+                            </Link>
+                            <Link to='/signin' className="header__login-link">
+                                Войти
+                            </Link>
+                        </div>
+                    </header >)
+                    : (
+                        <header className="header header-logged-in">
+                            <Link to='/' className="header__logo-link">
+                                <img className="header__logo" src={logoPath} alt='Логотип' />
+                            </Link >
+                            {(() => {
+                                if (isDesktopResolution) {
+                                    return (
+                                        <>
+                                            <Navigation />
+                                            <Link to='/profile' className="header__profile-link">
+                                                Аккаунт
+                                                <img className="header__user-icon"
+                                                    src={accountPath}
+                                                    alt="Иконка аккаунта" />
+                                            </Link>
+                                        </>
+                                    );
+                                } else {
+                                    return (
+                                        <>
+                                            {isMobileMenuOpen && <MobileMenu isMobileMenuOpen={isMobileMenuOpen} closeMobileMenu={closeMobileMenu} />}
+                                            <button className="header__menu-burger" type="button" onClick={openMobileMenu} />
+                                        </>
+                                    );
+                                }
+                            })()}
+                        </header >))
             }
             {(pathname === "/movies" || pathname === "/saved-movies" || pathname === "/profile") &&
                 (

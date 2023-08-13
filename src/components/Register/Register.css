@@ -34,11 +34,17 @@
     font-weight: 400;
     line-height: normal;
     visibility: hidden;
+    margin-top: 10px;
 }
 
 .registration__error_visible {
     visibility: visible;
     margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.registration__error_visible:last-of-type {
+    margin-bottom: 0px
 }
 
 .registration__footer {
