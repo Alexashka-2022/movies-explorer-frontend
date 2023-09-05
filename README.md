@@ -1,7 +1,18 @@
-# movies-explorer-frontend
+# Дипломный проект Яндекс Практикум (Frontend)
 
-ссылка на макет: https://disk.yandex.ru/d/CcOEZJ5cgkmqtw
+## Интро 
+Проект представляет из себя сервис для поиска и просмотра фильмов.
 
-Посмотреть проект можно по адресу: https://shmakov.diploma.nomoredomains.work
+### Для проекта использовались следующие технологии: 
+1. html
+2. css
+3. Javascript
+4. flex
+5. grid
+6. BEM Nested
+7. React.js
+8. Работа с API
+9. Работа с хуками
 
-Ссылка на pull request(level-3): https://github.com/Alexashka-2022/movies-explorer-frontend/pull/2
+### Посмотреть проект можно по адресу: 
+https://shmakov.diploma.nomoredomains.work
